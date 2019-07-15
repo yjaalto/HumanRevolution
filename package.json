@@ -20,8 +20,10 @@
   },
   "homepage": "https://github.com/ignita/HumanRevolution#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "dialog": "^0.3.1",
     "dialogs": "^2.0.1",
+    "express": "^4.17.1",
     "mysql": "^2.17.1",
     "sanitize-html": "^1.18.2"
   }
