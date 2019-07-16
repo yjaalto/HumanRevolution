@@ -23,9 +23,13 @@
     "body-parser": "^1.19.0",
     "dialog": "^0.3.1",
     "dialogs": "^2.0.1",
+    "ejs": "^2.6.2",
     "express": "^4.17.1",
+    "express-fileupload": "^0.1.1",
     "helmet": "^3.18.0",
     "mysql": "^2.17.1",
-    "sanitize-html": "^1.18.2"
+    "sanitize-html": "^1.18.2",
+    "req-flash": "0.0.3",
+    "then-busboy": "^1.4.0"
   }
 }
