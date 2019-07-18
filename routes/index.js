@@ -11,7 +11,9 @@ var query = `SELECT T.title as title
                  ON T.author_id = A.id`
 
 db.query(query, function (error, topics) {
-    router.get('/', (req, res) => res.render('index', {title: 'My-New-Human-Revolution', topics:topics} ));
+    db.query(`SELECT * FROM author`, function (error2, authors) {
+    router.get('/', (req, res) => res.render('index', {title: 'My-New-Human-Revolution', topics:topics, authors:authors} ));
+    });
 });
 
 //topic.home(res)
