@@ -1,32 +1,274 @@
-.row {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-.photo {
-    border-radius: 45px;
-    margin-right: 20px;
-    width: 90px;
-    height: 90px;
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+
+body {
+    font-family: 'Spoqa Han Sans', 'Sans-serif';
 }
 .form-control {
     width: 30px;
     display: inline-block;
     margin-right: 10px;
 }
+
 .title {
     font-weight: 700;
 }
+
 .btn-more {
-    margin-top:10px;
+    margin-top: 10px;
     width: 100%
 }
+
 .label {
     font-weight: normal;
 }
-  
-.btn-group-xs > .btn, .btn-xs {
-    padding  : .25rem .4rem;
-    font-size  : .875rem;
-    line-height  : .5;
-    border-radius : .2rem;
+
+.btn-group-xs>.btn,
+.btn-xs {
+    padding: .25rem .4rem;
+    font-size: .875rem;
+    line-height: .5;
+    border-radius: .2rem;
+}
+
+.jumbotron {
+    background-image: url("../images/jasmin-ne-9unwg59Jxng-unsplash.jpg");
+    background-position: center bottom;
+    background-size: cover;
+    margin-bottom: 0;
+}
+
+.jumbotron p:last-child {
+    margin-bottom: 0;
+}
+
+.jumbotron-heading {
+    font-weight: 300;
+}
+
+.jumbotron .container {
+    max-width: 40rem;
+}
+
+.content {
+    background-color: #ecf0f1;
+    border-top: solid 1px #e0e4e5;
+}
+
+a {
+    color: #363838 !important;
+}
+
+a:hover {
+    color: #989c9e !important;
+}
+
+/*--- Topic --*/
+.topic {
+    background-color: #ffffff;
+
+    border-radius: 2px;
+    box-shadow: 0 1px 2px #c9cccd;
+    margin-bottom: 20px;
+}
+
+.topic .wrap-ut {
+    width: 85%;
+}
+
+.topic .userinfo {
+    width: 15%;
+    padding: 20px 0 15px 15px;
+}
+
+.topic .topictext {
+    width: 85%;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 15px;
+
+    color: #989c9e;
+    font-size: 14px;
+    /* font-family: 'Open Sans Light', sans-serif;    */
+    line-height: 25px;
+}
+
+.topic .topicinfo {
+    width: 15%;
+    border-left: solid 1px #f1f1f1;
+
+
+}
+
+.topic .avatar {
+    width: 37px;
+    margin-left: 5px;
+}
+
+.topic .author {
+    width: 48px;
+    border-top: solid 1px #f1f1f1;
+    margin-top: 12px;
+    padding-top: 7px;
+}
+
+.topic h2 {
+    color: #363838;
+    font-size: 18px; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.topic .heart {
+    border-bottom: solid 1px #f1f1f1;
+    color:#9da6aa;
+    font-size: 12px;
+    font-family: 'Open Sans Regular', sans-serif; 
+    text-align: center;
+    line-height: 44px;
+}
+
+.topic .heart i {
+    font-size: 14px;
+}
+
+.topic .views {
+    border-bottom: solid 1px #f1f1f1;
+    color:#9da6aa;
+    font-size: 12px;
+    font-family: 'Open Sans Regular', sans-serif; 
+    text-align: center;
+    line-height: 44px;
+}
+
+.topic .views i {
+    font-size: 14px;
+}
+
+.topic .chapters {
+    color:#9da6aa;
+    font-size: 12px;
+    font-family: 'Open Sans Regular', sans-serif; 
+    text-align: center;
+    line-height: 44px;
+}
+
+.topic .chapters i {
+    font-size: 14px;
+}
+
+/*--- Avatar ---*/
+.avatar {
+    position: relative;
+}
+
+.avatar img {
+    border-radius: 50%;
+    height: 37px;
+    width: 37px;
+}
+
+
+@media (max-width: 767px) {
+    
+    /*--- index.html ---*/
+    .container-fluid {
+        padding: 0;
+    }
+
+    .topic .userinfo {
+        width: 30%;
+        padding: 15px 0 15px 15px;
+    }
+
+    .topic .topictext {
+        width: 70%;
+        padding-right: 15px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .topic .heart {
+        font-size: 12px;
+        padding: 7px;
+        min-width: 35px;
+    }
+    .topic .chapters i {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .topic .views i {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .topic .heart .mark {
+        left: 36%;
+    }
+
+}
+
+/*-----------------------------------------------------------------*/
+/*--- Small devices (768 - 991px) ---*/
+
+@media (min-width: 768px) and (max-width: 991px) {
+
+    .container-fluid {
+        padding: 0;
+    }
+
+    .topic .userinfo {
+        width: 15%;
+        padding: 15px 0 15px 15px;
+    }
+
+    .topic .topictext {
+        width: 85%;
+        padding-right: 15px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .topic .heart {
+        font-size: 12px;
+        padding: 7px;
+        min-width: 35px;
+    }
+    .topic .chapters i {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .topic .views i {
+        display: block;
+        margin-top: 5px;
+    }
+
+    .topic .heart .mark {
+        left: 36%;
+    }
+   
+}
+
+
+/*-----------------------------------------------------------------*/
+/*--- Medium devices (992-1200px) ---*/
+@media (min-width: 992px) and (max-width: 1200px) {
+    .container-fluid {
+        padding: 0;
+    }
+}
+
+
+/*-----------------------------------------------------------------*/
+/*--- Large devices (more 1200px) ---*/
+@media (min-width: 1201px) {
+    .container-fluid {
+        padding: 0;
+    }
+
+    .container {
+        padding: 0;
+    }
 }

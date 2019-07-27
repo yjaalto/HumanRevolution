@@ -2,9 +2,10 @@ var db = require('../lib/db');
 
 var express = require('express');
 var router = express.Router();
-const topic = require('../lib/topic');
 
-var query = `SELECT T.title as title 
+var query = `SELECT T.id as id
+                  , T.title as title 
+                  , ISNULL(T.description, '') as description
                   , A.name as name 
                FROM topic AS T 
               INNER JOIN author AS A 
@@ -16,5 +17,4 @@ db.query(query, function (error, topics) {
     });
 });
 
-//topic.home(res)
 module.exports = router;

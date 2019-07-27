@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const topic = require('./lib/topic');
 const author = require('./lib/author');
-const bodyParser = require('body-parser')
-    , busboy = require('then-busboy')
-    , fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser'),
+    busboy = require('then-busboy'),
+    fileUpload = require('express-fileupload');
 
 const topicRouter = require('./routes/topic');
 const indexRouter = require('./routes/index');
@@ -32,8 +32,8 @@ app.use(express.static(__dirname + '/public'));
 app.use(fileUpload());
 
 
- app.use('/', indexRouter);
-// app.use('/topic', topicRouter);
+app.use('/', indexRouter);
+app.use('/topic', topicRouter);
 
 // app.get('/authors', (request, response) => author.home(request, response));
 // app.use('/author', authorRouter);

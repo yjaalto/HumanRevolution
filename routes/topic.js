@@ -3,7 +3,7 @@ var router = express.Router();
 const topic = require('../lib/topic');
 
 
-router.get('/page/:pageId', function(request, response){
+router.get('/:topicId', function(request, response){
     topic.page(request, response);
 });
 
