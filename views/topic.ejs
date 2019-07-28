@@ -11,34 +11,74 @@
         <% include ./header %>
     </header>
     <main role="main" class="content">
-            <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="topic">
-                                <div class="wrap-ut float-left">
-                                    <div class="userinfo float-left">
-                                        <div class="avatar">
-                                            <img src="../images/female-technologist.png">
-                                        </div>
-                                        <div class="author">
-                                            <%= topics[0].name%>
-                                        </div>
-                                    </div>
-                                    <div class="topictext float-left">
-                                        <h2>
-                                            <%=topics[0].title%>
-                                        </h2>
-                                        <p>
-                                            <%=topics[0].description%>
-                                        </p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-inline">
+                        <input class="search form-control mb-2" placeholder="찾기" />
+                        <button class="sort btn btn-secondary mb-2 mr-2" data-sort="name">이름으로 정렬</button>
+                        <button class="sort btn btn-secondary mb-2 mr-2" data-sort="title">제목으로 정렬</button>
+                        <a href='/topic/create/<%=topic[0].id%>' class="btn btn-primary mb-2 text-white">새로 작성하기</a>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="topic">
+                        <div class="wrap-ut float-left">
+                            <div class="userinfo float-left">
+                                <div class="avatar">
+                                    <img src="../images/female-technologist.png">
+                                </div>
+                                <div class="author">
+                                    <%= topic[0].name%>
+                                </div>
+                            </div>
+                            <div class="topictext float-left">
+                                <h2>
+                                    <%=topic[0].title%>
+                                </h2>
+                                <p>
+                                    <% var desc = topic[0].description %>
+                                    <%- desc.replace('\n', '<br>') %>
+                                </p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <% if(chapters != null && chapters.length > 0) {%>
+            <hr>
+            <div class="row">
+                <ul class="col-md-12 list">
+                    <% var i = 0; %>
+                    <% while(i < chapters.length) { %>
+                    <div class="topic">
+                        <div class="wrap-ut float-left">
+                            <div class="userinfo float-left">
+                                <div class="avatar">
+                                </div>
+                            </div>
+                            <div class="topictext float-left">
+                                <h2 class="title">
+                                    <a href='/chapter/<%=topic[0].id%>/<%=chapters[i].id%>'><%=chapters[i].title%></a>
+                                </h2>
+                                <p>
+                                    <%= chapters[i].text %>
+                                </p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                </ul>
+            </div>
+            <% i++;}%>
+            <%}%>
+        </div>
     </main>
 
 </body>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <% include ./head %>
+    <title><%=title%></title>
+</head>
+
+<body>
+    <header>
+        <% include ./header %>
+    </header>
+    <main role="main">
+        <div class="container mt-5">
+            <article>
+                <h1 class="chapter-title"><%= chapter[0].title%></h1>
+                <div class="chapter-meta">
+                    <span class="date"><i class="fas fa-calendar-alt"></i> <%= chapter[0].created%></span>
+                </div>
+                <p>
+                    <%- chapter[0].content %>
+                </p>
+            </article>
+        </div>
+    </main>
+</body>
+
+</html>

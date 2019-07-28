@@ -36,7 +36,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <ul class="col-md-12 list">
                             <% if(topics != null && topics.length >0) {%>
                             <% var i = 0; %>
                             <% while(i < topics.length) { %>
@@ -48,15 +48,16 @@
                                         </div>
                                         <div class="author">
                                             <%= topics[i].name%>
+                                            <a class="edit" data-id='<%=topics[i].id%>' href="#"><i
+                                                    class="fas fa-edit"></i></a>
                                         </div>
                                     </div>
                                     <div class="topictext float-left">
-                                        <h2>
-                                            <a href='/topic/<%=topics[i].id%>'><%=topics[i].title%></a>
+                                        <h2 class="title">
+                                            <a href='/topic/page/<%=topics[i].id%>'><%=topics[i].title%></a>
                                         </h2>
                                         <p>
-                                            <!-- <% var desc = topics[i].description %>
-                                            <%= desc.replace('\n', '<br>') %> -->
+                                            <%= topics[i].description %>
                                         </p>
                                     </div>
                                     <div class="clearfix"></div>
@@ -69,7 +70,7 @@
                                         <i class="fas fa-eye"></i> 1,568
                                     </div>
                                     <div class="chapters">
-                                        <i class="fas fa-scroll"></i> 15
+                                        <i class="fas fa-scroll"></i> <%=topics[i].chaptercnt%>
                                     </div>
                                 </div>
                                 <div class="clearfix"></div>
@@ -141,4 +142,32 @@
         </div>
     </footer>
 </body>
+<script>
+    $(function() {
+        $('a.edit').click(function (e){
+        e.preventDefault();
+        var action = '/topic/update/' + $(this).data('id');
+            
+        $.getJSON(action, function (topic) {
+            $('#title').val(topic[0].title);
+            $('#description').val(topic[0].description);
+            $('#topicModal').modal('show');
+        });
+    });
+    });
+    
+    function editTopic(id) {
+
+        // $.ajax({
+        //     url: `/topic/update/${id}`,
+        //     dataType: 'json',
+        //     method : 'POST',
+        //     // data: data,
+        //     success: function(result){
+        //         console.log(result);
+        //     }
+        // });
+
+    }
+</script>
 </html>

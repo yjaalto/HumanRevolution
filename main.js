@@ -8,6 +8,7 @@ const bodyParser = require('body-parser'),
 
 const topicRouter = require('./routes/topic');
 const indexRouter = require('./routes/index');
+const chapterRouter = require('./routes/chapter');
 const authorRouter = require('./routes/author');
 var helmet = require('helmet');
 // app.use(helmet());
@@ -34,7 +35,7 @@ app.use(fileUpload());
 
 app.use('/', indexRouter);
 app.use('/topic', topicRouter);
-
+app.use('/chapter', chapterRouter);
 // app.get('/authors', (request, response) => author.home(request, response));
 // app.use('/author', authorRouter);
 

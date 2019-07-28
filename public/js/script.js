@@ -1,7 +1,7 @@
-// $(document).ready(function () {
-//     var options = {
-//         valueNames: ['name', 'title']
-//     };
+$(document).ready(function () {
+    var options = {
+        valueNames: ['author', 'title']
+    };
 
-//     var revoList = new List('revos', options);
-// });
+    var revoList = new List('revos', options);
+});
