@@ -11,9 +11,9 @@ router.get('/:topicId/:chapterId', function(request, response){
 //     topic.create(request, response);
 // });
 
-// router.post('/create_process', function(request, response){
-//     topic.create_process(request, response);
-// });
+router.post('/create_process', function(request, response){
+    chapter.create_process(request, response);
+});
 
 // router.get('/update/:pageId', function(request, response) {
 //     topic.update(request, response);
