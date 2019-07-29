@@ -188,9 +188,10 @@
             url: $(this).attr('action'),             
             type: 'POST',                    
             data: data,
-            success: function(result) { 
-                $("#topicModal").modal('hide'); 
+            success: function(result) {
             }
+        }).done(function () {
+            $("#topicModal").modal('hide'); 
         });
     });
 </script>
