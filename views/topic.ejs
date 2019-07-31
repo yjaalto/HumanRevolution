@@ -18,7 +18,7 @@
                         <input class="search form-control mb-2" placeholder="찾기" />
                         <button class="sort btn btn-secondary mb-2 mr-2" data-sort="name">이름으로 정렬</button>
                         <button class="sort btn btn-secondary mb-2 mr-2" data-sort="title">제목으로 정렬</button>
-                        <a href='/topic/create/<%=topic[0].id%>' class="btn btn-primary mb-2 text-white">새로 작성하기</a>
+                        <a href='/chapter/create/<%=topic[0].id%>' class="btn btn-primary mb-2 text-white">새로 작성하기</a>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,8 @@
                             </div>
                             <div class="topictext float-left">
                                 <h2 class="title">
-                                    <a href='/chapter/<%=topic[0].id%>/<%=chapters[i].id%>'><%=chapters[i].title%></a>
+                                    <a
+                                        href='/chapter/view/<%=topic[0].id%>/<%=chapters[i].id%>'><%=chapters[i].title%></a>
                                 </h2>
                                 <p>
                                     <%= chapters[i].text %>
@@ -73,11 +74,10 @@
                         </div>
                         <div class="clearfix"></div>
                     </div>
-
+                    <% i++;}%>
+                    <%}%>
                 </ul>
             </div>
-            <% i++;}%>
-            <%}%>
         </div>
     </main>
 

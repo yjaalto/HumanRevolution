@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="topictext float-left">
                                         <h2 class="title">
-                                            <a href='/topic/page/<%=topics[i].id%>'><%=topics[i].title%></a>
+                                            <a href='/topic/<%=topics[i].id%>'><%=topics[i].title%></a>
                                         </h2>
                                         <p>
                                             <%= topics[i].description %>
@@ -87,7 +87,7 @@
                     aria-labelledby="topicModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                                <form id="formTopic" action="/topic/create_process" method="post">
+                                <form id="formTopic" action="/topic/create" method="post">
                                     <input id="topicId" type="hidden" name="id">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">새로 집필하기</h5>
@@ -164,11 +164,11 @@
             $('#description').val(topic[0].description);
 
             $('#author').hide();
-            action = '/topic/update_process';
+            action = `/topic/update_process`;
         }else {
             $('#title').val('');
             $('#description').val('');
-            action = '/topic/create_process';
+            action = '/topic/create';
             $('#author').show();
         }
         $("#formTopic").attr('action',action);
@@ -183,6 +183,7 @@
             data.id = $('#topicId').val();
             data.title = $("#title").val();
             data.description = $("#description").val();
+            data.author = $("#author option:selected").val();
 
         $.ajax({
             url: $(this).attr('action'),             
@@ -191,7 +192,7 @@
             success: function(result) {
             }
         }).done(function () {
-            $("#topicModal").modal('hide'); 
+            $("#topicModal").modal('hide');
         });
     });
 </script>

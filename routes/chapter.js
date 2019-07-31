@@ -3,13 +3,13 @@ var router = express.Router();
 const chapter = require('../lib/chapter');
 
 
-router.get('/:topicId/:chapterId', function(request, response){
+router.get('/view/:topicId/:chapterId', function(request, response){
     chapter.page(request, response);
 });
 
-// router.get('/create/:topicId', function(request, response) {
-//     topic.create(request, response);
-// });
+router.get('/create/:topicId', function(request, response) {
+    chapter.create(request, response);
+});
 
 router.post('/create_process', function(request, response){
     chapter.create_process(request, response);

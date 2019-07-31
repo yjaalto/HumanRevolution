@@ -16,11 +16,6 @@ var helmet = require('helmet');
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-// app.get('/', function (req, res) {
-//     res.render('index');
-// });
-
-
 app.use(express.static('public'));
 app.use(express.static('css'));
 app.use(express.static('js'));
