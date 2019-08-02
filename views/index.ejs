@@ -14,10 +14,11 @@
         <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading" style="font-family: 'Kaushan Script'">My New Human Revolution</h1>
-                <p class="lead text-white h6" style="font-family: 'Spoqa Han Sans'">목표를 하루 달성하면 <b>하루분의 '인간혁명'의 이야기</b>가
-                    탄생합니다.
+                <p class="lead text-white h6" style="font-family: 'Spoqa Han Sans'">목표를 하루 달성하면 <b>하루분의 인간혁명의 이야기</b>가
+                    탄생합니다.<br>
                     어디까지나 스스로 정합시다. 자기답게 노력하면 됩니다.<br>누군가를 보고 "나는 별로 노력 안 하는 것 같다."고 고민할 필요는 없습니다.<br> "이만큼 하면 나의
-                    승리다!"라고 말할 수 있는 목표면 됩니다.</p>
+                    승리다!"라고 말할 수 있는 목표면 됩니다.
+                </p>
                 <p>
                     <button class="btn btn-primary my-2" data-toggle="modal" onclick="setInput('', 'C');">새로
                         집필하기</button>
@@ -138,12 +139,12 @@
     </main>
     <footer class="text-muted">
         <div class="container">
-            <p class="float-right">
-                <a href="#">Back to top</a>
-            </p>
         </div>
     </footer>
+    <a href="#" id="scroll" style="display: none;"><span></span></a>
 </body>
+<script type="text/javascript" src="../js/list.js"></script>
+
 <script>
     $(function() {
         $('a.edit').click(function (e){
@@ -191,9 +192,13 @@
             data: data,
             success: function(result) {
             }
-        }).done(function () {
-            $("#topicModal").modal('hide');
         });
+
+        $("#topicModal").modal('hide');
+    });
+
+    $("#topicModal").on('hidden.bs.modal', function () {
+        location.reload();
     });
 </script>
 </html>
