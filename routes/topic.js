@@ -3,7 +3,7 @@ var router = express.Router();
 const topic = require('../lib/topic');
 
 
-router.get('/:topicId', function(request, response){
+router.get('/:topicId', function (request, response) {
     topic.page(request, response);
 });
 
@@ -11,19 +11,19 @@ router.get('/:topicId', function(request, response){
 //     topic.create(request, response);
 // });
 
-router.post('/create', function(request, response){
+router.post('/create', function (request, response) {
     topic.create(request, response);
 });
 
-router.get('/update/:topicId', function(request, response) {
+router.get('/update/:topicId', function (request, response) {
     topic.update(request, response);
 });
 
-router.post('/update_process', function(request, response){
+router.post('/update_process', function (request, response) {
     topic.update_process(request, response);
 });
 
-router.post('/delete_process', function(request, response){
+router.post('/delete_process', function (request, response) {
     topic.delete_process(request, response);
 });
 

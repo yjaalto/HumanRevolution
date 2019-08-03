@@ -8,6 +8,7 @@
 
 <body>
     <header>
+        <% var penName = penName %>
         <% include ./header %>
     </header>
     <main role="main" class="content">
@@ -22,6 +23,9 @@
                 <p>
                     <button class="btn btn-primary my-2" data-toggle="modal" onclick="setInput('', 'C');">새로
                         집필하기</button>
+                    <% if(penName === undefined) { %>
+                    <a href="/auth/register" class="btn btn-danger text-white">완전간단하게 가입하기</a>
+                    <% } %>
                 </p>
             </div>
         </section>
@@ -32,8 +36,8 @@
                         <div class="col-md-6">
                             <div class="form-inline">
                                 <input class="search form-control mb-2" placeholder="찾기" />
-                                <button class="sort btn btn-secondary mb-2 mr-2" data-sort="name">이름으로 정렬</button>
-                                <button class="sort btn btn-secondary mb-2" data-sort="title">제목으로 정렬</button>
+                                <!-- <button class="sort btn btn-secondary mb-2 mr-2" data-sort="name">이름으로 정렬</button>
+                                <button class="sort btn btn-secondary mb-2" data-sort="title">제목으로 정렬</button> -->
                             </div>
                         </div>
                     </div>
@@ -50,8 +54,11 @@
                                         </div>
                                         <div class="author">
                                             <%= topics[i].name%>
-                                            <a class="edit" data-id='<%=topics[i].id%>' href="#"><i
+                                            <% if(penName == topics[i].name) { %> 
+                                                <a class="edit" data-id='<%=topics[i].id%>' href="#"><i
                                                     class="fas fa-edit"></i></a>
+                                            <%}%>
+                                            
                                         </div>
                                     </div>
                                     <div class="topictext float-left">
@@ -117,16 +124,6 @@
                                                 </div>
                                               </div>
                                     </div>
-                                    <div class="form-group">
-                                        <select id="author" name="author" class="form-control">
-                                            <% if(authors != null && authors.length >0) {%>
-                            <% var i = 0; %>
-                            <% while(i < authors.length) { %>
-                            <option value='<%=authors[i].id%>'><%=authors[i].name%></option>
-                            <% i++; }%>
-                            <%}%>
-                                        </select>
-                                    </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
@@ -159,22 +156,29 @@
     
     function setInput(topic, state) {
         var action;
-        if(state === 'U') {
+
+        var penName = '<%- penName %>'
+        if(penName === '') {
+            alert('가입 후 로그인해주세요.');
+            return false;
+        }else {
+            if(state === 'U') {
             $('#topicId').val(topic[0].id);
             $('#title').val(topic[0].title);
             $('#description').val(topic[0].description);
 
-            $('#author').hide();
+            //$('#author').hide();
             action = `/topic/update_process`;
         }else {
             $('#title').val('');
             $('#description').val('');
             action = '/topic/create';
-            $('#author').show();
+            // $('#author').show();
         }
         $("#formTopic").attr('action',action);
         
         $('#topicModal').modal('show');
+        }
     }
 
     $("#formTopic").on("submit", function (e) {
@@ -184,7 +188,7 @@
             data.id = $('#topicId').val();
             data.title = $("#title").val();
             data.description = $("#description").val();
-            data.author = $("#author option:selected").val();
+            //data.author = $("#author option:selected").val();
 
         $.ajax({
             url: $(this).attr('action'),             
@@ -200,5 +204,7 @@
     $("#topicModal").on('hidden.bs.modal', function () {
         location.reload();
     });
+
 </script>
+
 </html>

@@ -5,13 +5,13 @@ const author = require('./lib/author');
 const bodyParser = require('body-parser'),
     busboy = require('then-busboy'),
     fileUpload = require('express-fileupload');
+const flash = require('connect-flash');
 
-const topicRouter = require('./routes/topic');
-const indexRouter = require('./routes/index');
-const chapterRouter = require('./routes/chapter');
-const authorRouter = require('./routes/author');
+
 var helmet = require('helmet');
-// app.use(helmet());
+app.use(helmet());
+const session = require('express-session');
+const FileStore = require('session-file-store')(session);
 
 app.set('view engine', 'ejs');
 app.set('views', './views');
@@ -27,13 +27,45 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(__dirname + '/public'));
 app.use(fileUpload());
 
+var sessionOptions = {
+    HttpOnly: true,
+    secret: '',
+    resave: false,
+    saveUninitialized: true
+    // store: new FileStore(),
+    // name: 'my.contect.sid'
+};
+
+app.use(session(sessionOptions));
+
+app.use(flash());
+const passport = require('./lib/passport')(app);
+
+const topicRouter = require('./routes/topic');
+const indexRouter = require('./routes/index');
+const chapterRouter = require('./routes/chapter');
+const authRouter = require('./routes/auth')(passport);
 
 app.use('/', indexRouter);
 app.use('/topic', topicRouter);
 app.use('/chapter', chapterRouter);
-// app.get('/authors', (request, response) => author.home(request, response));
-// app.use('/author', authorRouter);
+app.use('/auth', authRouter);
 
+app.get('/logout', function (req, res) {
+    req.logout();
+    // req.session.destroy(function (err) {
+    //     if (err) {
+    //         console.error(err);
+    //     } else {
+    //         res.clearCookie(sessionOptions.name);
+            
+    //     }
+    // });
+    res.redirect('/');
+    // req.session.save(function () {
+    //     res.redirect('/');
+    // });
+});
 
 app.use(function (req, res, next) {
     res.status(404).send('Sorry cant find that!');

@@ -10,8 +10,8 @@
 
 <body>
     <header>
+        <% var penName = penName %>
         <% include ./header %>
-
     </header>
     <main role="main" class="content">
         <div class="container mt-5">
@@ -21,7 +21,7 @@
                     <form action="/chapter/create_process" method="post" class="" id="form" novalidate>
                         <input type="hidden" name="topic_id" value='<%= topicId %>'>
                         <% if (locals.chapter_id) { %>
-                            <input type="hidden" name="chapter_id" value='<%= chapterId %>' >
+                        <input type="hidden" name="chapter_id" value='<%= chapterId %>'>
                         <%}%>
                         
                         <label for="title" class="mt-3">제목</label>
@@ -36,10 +36,10 @@
                         <div class="text-right">
                             <button class="btn btn-primary btn-md mt-3 mb-3" type="submit">저장</button>
                             <a href='/topic/<%= topicId %>' class="btn btn-secondary text-white">목록</a>
-                        </div>
-                    </form>
                 </div>
+                </form>
             </div>
+        </div>
         </div>
     </main>
 
@@ -74,15 +74,14 @@
 
         const state = '<%= state %>';
         let action;
-        if(state === 'U') {
+        if (state === 'U') {
             let chapterId = '<%= chapterId %>';
             $('#title').val('<%= chapter_title %>');
-            quill.setContents(<%- JSON.stringify(delta) %>);
+            quill.setContents( <%-JSON.stringify(delta) %> );
             action = '/chapter/update_process';
+        } else {
+            action = '/chapter/create_process';
         }
-       else {
-        action = '/chapter/create_process';
-       }
 
         $("#form").attr('action', action);
 
@@ -114,7 +113,7 @@
     //     }
     //   };
     // }
-    
+
     // function saveToServer(file) {
     //   const fd = new FormData();
     //   fd.append('image', file);

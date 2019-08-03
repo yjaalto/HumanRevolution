@@ -8,38 +8,40 @@
 
 <body>
     <header>
+        <% var penName = penName %>
         <% include ./header %>
     </header>
     <main role="main" class="content">
-            <article>
+        <!-- <article> -->
         <div class="container mt-5">
-                <div class="chapter p-3">
-                    <h1 class="chapter-title"><%= chapter[0].title%></h1>
-                    <div class="chapter-meta">
-                        <span class="date"><i class="fas fa-calendar-alt"></i> <%= chapter[0].created%></span>
-                        <span class="topic_name"><i class="fas fa-book"></i> <%= chapter[0].topic_title%></span>
-                        <span class="user"><i class="fas fa-user"></i> <%= chapter[0].name%></span>
-                    </div>
-                    <p>
-                        <%- chapter[0].content %>
-                    </p>
-                    <div class="chapterinfobot">
-                        <div class="float-right">
-                            <div class="btn-group" role="group">
-                                <form action="/chapter/delete_process" method="post">
-                                    <input type="hidden" name="topic_id" value='<%=chapter[0].topic_id%>'>
-                                    <input type="hidden" name="chapter_id" value='<%=chapter[0].id%>'>
-                                    <button type="submit" class="btn btn-danger">삭제</button>
-                                    <a href='/chapter/update/<%=chapter[0].topic_id%>/<%=chapter[0].id%>' class="btn btn-warning">수정</a>
-                                    <a href='/topic/<%=chapter[0].topic_id%>'
-                                        class="btn btn-secondary text-white">목록</a> </form>
-                            </div>
+            <div class="chapter p-3">
+                <h1 class="chapter-title"><%= chapter[0].title%></h1>
+                <div class="chapter-meta">
+                    <span class="date"><i class="fas fa-calendar-alt"></i> <%= chapter[0].created%></span>
+                    <span class="topic_name"><i class="fas fa-book"></i> <%= chapter[0].topic_title%></span>
+                    <span class="user"><i class="fas fa-user"></i> <%= chapter[0].name%></span>
+                </div>
+                <p>
+                    <%- chapter[0].content %>
+                </p>
+                <div class="chapterinfobot">
+                    <div class="float-right">
+                        <div class="btn-group" role="group">
+                            <form action="/chapter/delete_process" method="post">
+                                <input type="hidden" name="topic_id" value='<%=chapter[0].topic_id%>'>
+                                <input type="hidden" name="chapter_id" value='<%=chapter[0].id%>'>
+                                <button type="submit" class="btn btn-danger">삭제</button>
+                                <a href='/chapter/update/<%=chapter[0].topic_id%>/<%=chapter[0].id%>'
+                                    class="btn btn-warning">수정</a>
+                                <a href='/topic/<%=chapter[0].topic_id%>' class="btn btn-secondary text-white">목록</a>
+                            </form>
                         </div>
                     </div>
-                    <div class="clearfix"></div>
                 </div>
+                <div class="clearfix"></div>
+            </div>
         </div>
-    </article>
+        <!-- </article> -->
     </main>
     <a href="#" id="scroll" style="display: none;"><span></span></a>
 </body>
