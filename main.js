@@ -1,9 +1,6 @@
 const express = require('express');
 const app = express();
-const topic = require('./lib/topic');
-const author = require('./lib/author');
 const bodyParser = require('body-parser'),
-    busboy = require('then-busboy'),
     fileUpload = require('express-fileupload');
 const flash = require('connect-flash');
 
@@ -29,7 +26,7 @@ app.use(fileUpload());
 
 var sessionOptions = {
     HttpOnly: true,
-    secret: '',
+    secret: 'sdfsejwoerjqworeiqewq',
     resave: false,
     saveUninitialized: true
     // store: new FileStore(),

@@ -17,13 +17,10 @@ router.get('/', function (req, res) {
                      ON T.author_id = A.id`
 
     db.query(query, function (error, topics) {
-        db.query(`SELECT * FROM author`, function (error2, authors) {
-            res.render('index', {
-                title: 'My-New-Human-Revolution',
-                topics: topics,
-                authors: authors,
-                penName: auth.getPenName(req, res)
-            });
+        res.render('index', {
+            title: 'My-New-Human-Revolution',
+            topics: topics,
+            penName: auth.getPenName(req, res)
         });
     });
 });

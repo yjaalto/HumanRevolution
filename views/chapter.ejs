@@ -28,11 +28,14 @@
                     <div class="float-right">
                         <div class="btn-group" role="group">
                             <form action="/chapter/delete_process" method="post">
+                                <% if(chapter[0].authusername == username) {%>
+                                    <button type="submit" class="btn btn-danger">삭제</button>
+                                    <a href='/chapter/update/<%=chapter[0].topic_id%>/<%=chapter[0].id%>'
+                                        class="btn btn-warning">수정</a>
+                                <%} %>
                                 <input type="hidden" name="topic_id" value='<%=chapter[0].topic_id%>'>
                                 <input type="hidden" name="chapter_id" value='<%=chapter[0].id%>'>
-                                <button type="submit" class="btn btn-danger">삭제</button>
-                                <a href='/chapter/update/<%=chapter[0].topic_id%>/<%=chapter[0].id%>'
-                                    class="btn btn-warning">수정</a>
+                                
                                 <a href='/topic/<%=chapter[0].topic_id%>' class="btn btn-secondary text-white">목록</a>
                             </form>
                         </div>

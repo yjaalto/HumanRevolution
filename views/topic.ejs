@@ -18,10 +18,11 @@
                     <div class="col-md-12">
                         <div class="form-inline">
                             <input class="search form-control mb-2" placeholder="찾기" />
-                            <!-- <button class="sort btn btn-secondary mb-2 mr-2" data-sort="name">이름으로 정렬</button>
-                        <button class="sort btn btn-secondary mb-2 mr-2" data-sort="title">제목으로 정렬</button> -->
-                            <a href='/chapter/create/<%=topic[0].id%>' class="btn btn-primary mb-2 text-white">새로
+                            <% if (topic[0].authname === username) { %>
+                            <a href='/chapter/create/<%=topic[0].id%>' class="btn btn-primary mb-2 mr-2 text-white">새로
                                 작성하기</a>
+                            <% } %>
+                            <a href='/' class="btn btn-secondary text-white mb-2">목록</a>
                         </div>
                     </div>
                 </div>
