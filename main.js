@@ -2,8 +2,9 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser'),
     fileUpload = require('express-fileupload');
-const flash = require('connect-flash');
+app.use(bodyParser.json());
 
+const flash = require('connect-flash');
 
 var helmet = require('helmet');
 app.use(helmet());
@@ -19,6 +20,7 @@ app.use(express.static('js'));
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+
 
 // 기본 path를 /public으로 설정(css, javascript 등의 파일 사용을 위해)
 app.use(express.static(__dirname + '/public'));
@@ -50,18 +52,44 @@ app.use('/auth', authRouter);
 
 app.get('/logout', function (req, res) {
     req.logout();
-    // req.session.destroy(function (err) {
-    //     if (err) {
-    //         console.error(err);
-    //     } else {
-    //         res.clearCookie(sessionOptions.name);
-            
-    //     }
-    // });
     res.redirect('/');
-    // req.session.save(function () {
-    //     res.redirect('/');
-    // });
+});
+
+const db = require('./lib/db');
+app.post('/liked', function(request, response) {
+    const post = request.body;
+    db.query(`
+            INSERT INTO chapterlike 
+            ( topicid
+            , chapterid
+            , userid
+            , liketime
+            ) 
+            VALUES
+            ( ?
+            , ?
+            , ?
+            , NOW())`,
+        [post.topicId, post.chapterId, post.username],
+        function (error, result) {
+            if (error) {
+                throw error;
+            }
+        });
+});
+app.post('/unliked', function(request, response) {
+    const post = request.body;
+    db.query(`
+            DELETE from chapterlike 
+             WHERE topicid = ? 
+               AND chapterid = ?
+               AND userid = ?`,
+        [post.topicId, post.chapterId, post.username],
+        function (error, result) {
+            if (error) {
+                throw error;
+            }
+        });
 });
 
 app.use(function (req, res, next) {
