@@ -42,24 +42,6 @@ const indexRouter = require('./routes/index');
 const chapterRouter = require('./routes/chapter');
 
 const multer = require('multer');
-// var storage = multer.diskStorage({
-//     destination: function(req, file, cb) {
-//         cb(null, './public/uploads/'); // Make sure this folder exists
-//     },
-//     filename: function(req, file, cb) {
-//         var ext = file.originalname.split('.').pop();
-//         cb(null, file.fieldname + '-' + Date.now() + '.' + ext);
-//     }
-// }),
-// upload = multer({ storage: storage }).single('profile');
-// var storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, 'public/upload') //you tell where to upload the files,
-//     },
-//     filename: function (req, file, cb) {
-//         cb(null, file.fieldname + '-' + Date.now() + '.png')
-//     }
-// })
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -72,13 +54,14 @@ var storage = multer.diskStorage({
 
 var upload = multer({storage: storage})
 
-// app.post('/register_process', upload.single('profile'), function(req, res) {
-//     if (req.file) { 
-//         console.log('Thank you for the file'); 
-//     } 
-//     console.log(`body`, req.body);// {"someParam": "someValue"}
-//     res.send(req.files); 
-//   });
+
+app.post('/upload/image', upload.single('image'), function(req, res) {
+    if (req.file) { 
+        console.log('Thank you for the file'); 
+    } 
+    var responseData = {'data' : 'public/uploads/' + req.file.filename}
+    res.json(responseData);
+  });
 
 const authRouter = require('./routes/auth')(passport, upload);
 
