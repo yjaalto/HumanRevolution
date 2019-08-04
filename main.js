@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser'),
-    fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 const flash = require('connect-flash');
@@ -21,10 +20,8 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-
 // 기본 path를 /public으로 설정(css, javascript 등의 파일 사용을 위해)
 app.use(express.static(__dirname + '/public'));
-app.use(fileUpload());
 
 var sessionOptions = {
     HttpOnly: true,
@@ -43,7 +40,47 @@ const passport = require('./lib/passport')(app);
 const topicRouter = require('./routes/topic');
 const indexRouter = require('./routes/index');
 const chapterRouter = require('./routes/chapter');
-const authRouter = require('./routes/auth')(passport);
+
+const multer = require('multer');
+// var storage = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//         cb(null, './public/uploads/'); // Make sure this folder exists
+//     },
+//     filename: function(req, file, cb) {
+//         var ext = file.originalname.split('.').pop();
+//         cb(null, file.fieldname + '-' + Date.now() + '.' + ext);
+//     }
+// }),
+// upload = multer({ storage: storage }).single('profile');
+// var storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, 'public/upload') //you tell where to upload the files,
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, file.fieldname + '-' + Date.now() + '.png')
+//     }
+// })
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads') // cb 콜백함수를 통해 전송된 파일 저장 디렉토리 설정
+      },
+      filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + '.' + file.mimetype.split('/')[1]) // cb 콜백함수를 통해 전송된 파일 이름 설정
+      }
+});
+
+var upload = multer({storage: storage})
+
+// app.post('/register_process', upload.single('profile'), function(req, res) {
+//     if (req.file) { 
+//         console.log('Thank you for the file'); 
+//     } 
+//     console.log(`body`, req.body);// {"someParam": "someValue"}
+//     res.send(req.files); 
+//   });
+
+const authRouter = require('./routes/auth')(passport, upload);
 
 app.use('/', indexRouter);
 app.use('/topic', topicRouter);
@@ -56,7 +93,7 @@ app.get('/logout', function (req, res) {
 });
 
 const db = require('./lib/db');
-app.post('/liked', function(request, response) {
+app.post('/liked', function (request, response) {
     const post = request.body;
     db.query(`
             INSERT INTO chapterlike 
@@ -77,7 +114,7 @@ app.post('/liked', function(request, response) {
             }
         });
 });
-app.post('/unliked', function(request, response) {
+app.post('/unliked', function (request, response) {
     const post = request.body;
     db.query(`
             DELETE from chapterlike 
@@ -91,6 +128,8 @@ app.post('/unliked', function(request, response) {
             }
         });
 });
+
+
 
 app.use(function (req, res, next) {
     res.status(404).send('Sorry cant find that!');

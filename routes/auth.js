@@ -5,7 +5,8 @@ const db = require('../lib/db');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-module.exports = function (passport) {
+
+module.exports = function (passport, upload) {
     router.get('/login', function (request, response) {
         auth.home(request, response);
     });
@@ -21,42 +22,42 @@ module.exports = function (passport) {
         auth.register(request, response);
     });
 
-    router.post('/register_process', function (request, response) {
-        var post = request.body;
+    router.post('/register_process', upload.single('profile'), function (request, response) {
+            var post = request.body;
         var username = post.username;
         var penname = post.penname;
         var password = post.password;
         var comment = post.comment;
-
+        let filename = request.file.filename;
+        
         db.query(`SELECT * FROM user WHERE id = ?`, [username], function (errorDuplicate, result) {
-            if(errorDuplicate){
+            if (errorDuplicate) {
                 throw errorDuplicate;
-            }
-            else {
-                if(Object.keys(result).length > 0) {
+            } else {
+                if (Object.keys(result).length > 0) {
                     request.flash('error', '중복된 아이디입니다.');
                     response.redirect('/auth/register');
                 } else {
-
-                    bcrypt.hash(password, saltRounds, function(errorBcrypt, hash) {
-                        if(errorBcrypt) {
+                    bcrypt.hash(password, saltRounds, function (errorBcrypt, hash) {
+                        if (errorBcrypt) {
                             throw errorBcrypt;
-                        }
-                        else {
+                        } else {
                             db.query(`
                                     INSERT INTO user 
                                     ( id
                                     , penname
                                     , password
                                     , profile
-                                    , created) 
+                                    , created
+                                    , file) 
                                     VALUES
                                     ( ?
                                     , ?
                                     , ?
                                     , ?
-                                    , NOW())`,
-                                [username, penname, hash, comment],
+                                    , NOW()
+                                    , ?)`,
+                                [username, penname, hash, comment, filename],
                                 function (error, result) {
                                     if (error) {
                                         throw error;
@@ -65,16 +66,17 @@ module.exports = function (passport) {
                                         username: username,
                                         penname: penname,
                                         password: hash,
-                                        profile: comment  
+                                        profile: comment,
+                                        image: filename
                                     }
                                     // 바로 로그인 
                                     request.login(user, function (err) {
-                                    return response.redirect('/');
+                                        return response.redirect('/');
                                     });
                                 });
                         }
                     });
-                    
+
                 }
             }
         })

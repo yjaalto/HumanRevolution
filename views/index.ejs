@@ -8,7 +8,8 @@
 
 <body>
     <header>
-        <% var penName = penName %>
+        <% var penName = penName; %>
+        <% var avatar = avatar; %>
         <% include ./header %>
     </header>
     <main role="main" class="content">
@@ -50,7 +51,11 @@
                                 <div class="wrap-ut float-left">
                                     <div class="userinfo float-left">
                                         <div class="avatar">
-                                            <img src="../images/female-technologist.png">
+                                            <% if(topics[i].file) { %>
+                                                <img src='uploads/<%=topics[i].file%>'>
+                                            <%} else {%>
+                                                <img src='images/profile_none.png%>'>
+                                            <%}%>
                                         </div>
                                         <div class="author">
                                             <%= topics[i].name%>
@@ -111,18 +116,6 @@
                                     <div class="form-group">
                                         <label for="description" class="col-form-label">설명</label>
                                         <textarea class="form-control" id="description" name="description" cols="40" rows="5"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="message-text" class="col-form-label">이미지</label>
-                                        <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                  <span class="input-group-text" id="inputGroupFileAddon01">업로드</span>
-                                                </div>
-                                                <div class="custom-file">
-                                                  <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                                                  <label class="custom-file-label" for="inputGroupFile01">이미지 선택</label>
-                                                </div>
-                                              </div>
                                     </div>
                             </div>
                             <div class="modal-footer">

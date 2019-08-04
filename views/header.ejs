@@ -26,7 +26,13 @@
         <div class="d-flex justify-content-end align-items-center">
             <% if(penName !== undefined) { %>
             <div class="avatar dropdown mr-2">
-                <a data-toggle="dropdown" href="#"><img src="/images/female-technologist.png" alt=""></a>
+                <a data-toggle="dropdown" href="#">
+                    <% if(avatar !== undefined) { %>
+                    <img src="/images/profile_none.png" alt="">
+                    <%} else { %>
+                    <img src="/images/<%= avatar %>" alt="">
+                    <% } %>
+                </a>
                 <b class="caret"></b>
                 <ul class="dropdown-menu" role="menu">
                     <h6 class="dropdown-header"><%= penName%></h6>
