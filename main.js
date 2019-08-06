@@ -59,8 +59,7 @@ app.post('/upload/image', upload.single('image'), function(req, res) {
     if (req.file) { 
         console.log('Thank you for the file'); 
     } 
-    var responseData = {'data' : 'public/uploads/' + req.file.filename}
-    res.json(responseData);
+    res.send('/uploads/' + req.file.filename);
   });
 
 const authRouter = require('./routes/auth')(passport, upload);
