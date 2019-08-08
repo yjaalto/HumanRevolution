@@ -28,9 +28,9 @@
             <div class="avatar dropdown mr-2">
                 <a data-toggle="dropdown" href="#">
                     <% if(locals.avatar) { %>
-                    <img src="/images/profile_none.png" alt="">
+                        <img src="/uploads/<%= avatar %>" alt="프로필 사진">
                     <%} else { %>
-                    <img src="/images/<%= avatar %>" alt="프로필 사진">
+                        <img src="/images/profile_none.png" alt="">
                     <% } %>
                 </a>
                 <b class="caret"></b>
@@ -75,9 +75,11 @@
                         <label for="profile_img">프로필 사진 변경</label>
                         <div>
                             <% if(locals.avatar) { %>
+                            <% if(userInfo.avater == '') { %>
                             <img src="/images/profile_none.png" alt="">
                             <%} else { %>
-                            <img src="/images/<%= avatar %>" alt="프로필 사진">
+                            <img src="/uploads/<%= avatar %>" alt="프로필 사진">
+                            <% }%>
                             <% } %>
                         </div>
                         <input type="file" name="profile_img" id="profile_img" class="sr-only">
@@ -109,19 +111,18 @@
 
     $("#formUser").on("submit", function (e) {
         e.preventDefault();
-        
+
         var data = {};
-            data.id = $('#id').val();
-            data.penName = $("#name").val();
-            data.comment = $("#comment").val();
-            //data.author = $("#author option:selected").val();
+        data.id = $('#id').val();
+        data.penName = $("#name").val();
+        data.comment = $("#comment").val();
+        //data.author = $("#author option:selected").val();
 
         $.ajax({
-            url: $(this).attr('action'),             
-            type: 'POST',                    
+            url: $(this).attr('action'),
+            type: 'POST',
             data: data,
-            success: function(result) {
-            }
+            success: function (result) {}
         });
 
         $("#profileModal").modal('hide');
