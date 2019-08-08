@@ -18,11 +18,13 @@ router.get('/', function (req, res) {
                      ON T.author_id = A.id`
 
     db.query(query, function (error, topics) {
+        console.log(`penname`,auth.getPenName(req, res));
         res.render('index', {
             title: 'My-New-Human-Revolution',
             topics: topics,
             penName: auth.getPenName(req, res),
-            avatar: auth.getProfileImage(req, res)
+            avatar: auth.getProfileImage(req, res),
+            userInfo: auth.getUserInfo(req,res)
         });
     });
 });

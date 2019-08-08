@@ -93,7 +93,7 @@
                     <div class="mb-3">
                             <label for="image">프로필 사진</label>
                             <div class="custom-file">
-                                <input type="file" name="profile" class="custom-file-input" id="inputGroupFile01" >
+                                <input type="file" name="profile" class="custom-file-input" id="inputGroupFile01" accept="image/*">
                                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                             </div>
                     </div>
@@ -142,6 +142,13 @@
         }, false);
 
     })();
+
+    $('#inputGroupFile01').on('change',function(){
+                //get the file name
+                var fileName = $(this).val();
+                //replace the "Choose a file" label
+                $(this).next('.custom-file-label').html(fileName);
+            })
 </script>
 
 </html>

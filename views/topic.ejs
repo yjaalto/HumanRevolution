@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-inline">
-                            <input class="search form-control mb-2" placeholder="찾기" />
+                            <!-- <input class="search form-control mb-2" placeholder="찾기" /> -->
                             <% if (topic[0].authname === username) { %>
                             <a href='/chapter/create/<%=topic[0].id%>' class="btn btn-primary mb-2 mr-2 text-white">새로
                                 작성하기</a>
@@ -60,7 +60,6 @@
                     <ul class="col-md-12 list">
                         <% var i = 0; %>
                         <% while(i < chapters.length) { %>
-                            
                         <div class="topic">
                             <div class="topwrap">
                                 <div class="userinfo float-left">
@@ -78,16 +77,18 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="topicinfobot">
+                                <div class="viewblock float-left">
+                                    <i class="fas fa-eye"></i> <%= chapters[i].views %>
+                                </div>
                                 <div class="likeblock float-left">
-                                        <i class="fas fa-heart"></i> <%= chapters[i].likes %>
+                                    <i class="fas fa-heart"></i> <%= chapters[i].likes %>
                                 </div>
                                 <div class="posted float-left">
-                                        <i class="far fa-clock"></i> <%= chapters[i].created %> 작성됨.
+                                    <i class="far fa-clock"></i> <%= chapters[i].created %> 작성됨.
                                 </div>
                             </div>
                             <div class="clearfix"></div>
                         </div>
-
                         <% i++;}%>
                         <%}%>
                 </ul>
@@ -95,5 +96,12 @@
     </div>
     </main>
     <a href="#" id="scroll" style="display: none;"><span></span></a>
+    <div class="modal fade userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                ...
+              </div>
+            </div>
+          </div>
 </body>
 </html>

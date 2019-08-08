@@ -24,20 +24,23 @@
             <strong>MNHR</strong>
         </a>
         <div class="d-flex justify-content-end align-items-center">
-            <% if(penName !== undefined) { %>
+            <% if(locals.penName) { %>
             <div class="avatar dropdown mr-2">
                 <a data-toggle="dropdown" href="#">
-                    <% if(avatar !== undefined) { %>
+                    <% if(locals.avatar) { %>
                     <img src="/images/profile_none.png" alt="">
                     <%} else { %>
-                    <img src="/images/<%= avatar %>" alt="">
+                    <img src="/images/<%= avatar %>" alt="프로필 사진">
                     <% } %>
                 </a>
                 <b class="caret"></b>
                 <ul class="dropdown-menu" role="menu">
-                    <h6 class="dropdown-header"><%= penName%></h6>
+                    <h6 class="dropdown-header"><% if(locals.penName){ %>
+                        <%=penName %>
+                        <% } %></h6>
                     <div class="dropdown-divider"></div>
-                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">내 정보</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal"
+                            data-target="#profileModal">수정</a></li>
                     <li role="presentation"><a role="menuitem" tabindex="-3" href="/logout">로그아웃</a></li>
 
                 </ul>
@@ -53,3 +56,79 @@
         </div>
     </div>
 </div>
+
+<% if(locals.userInfo) { %>
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <form id="formUser" action="/auth/update_process" method="post">
+                <input id="id" type="hidden" name="id">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">수정</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <label for="profile_img">프로필 사진 변경</label>
+                        <div>
+                            <% if(locals.avatar) { %>
+                            <img src="/images/profile_none.png" alt="">
+                            <%} else { %>
+                            <img src="/images/<%= avatar %>" alt="프로필 사진">
+                            <% } %>
+                        </div>
+                        <input type="file" name="profile_img" id="profile_img" class="sr-only">
+                        <label for="name">필명</label>
+                        <input id="name" class="form-control" name="penName">
+                        <label for="comment">결의 한마디</label>
+                        <textarea id="comment" class="form-control" name="comment"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="submit" class="btn btn-primary">수정</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        let userInfo = '<%- userInfo %>';
+
+        if (userInfo !== '') {
+            $('#id').val('<%- userInfo.userName %>');
+            $('#name').val('<%- userInfo.penName %>');
+            $('#comment').val('<%- userInfo.comment %>');
+        }
+    });
+
+    $("#formUser").on("submit", function (e) {
+        e.preventDefault();
+        
+        var data = {};
+            data.id = $('#id').val();
+            data.penName = $("#name").val();
+            data.comment = $("#comment").val();
+            //data.author = $("#author option:selected").val();
+
+        $.ajax({
+            url: $(this).attr('action'),             
+            type: 'POST',                    
+            data: data,
+            success: function(result) {
+            }
+        });
+
+        $("#profileModal").modal('hide');
+    });
+
+    $("#profileModal").on('hidden.bs.modal', function () {
+        location.reload();
+    });
+</script>
+<% } %>

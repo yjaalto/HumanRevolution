@@ -11,6 +11,27 @@ module.exports = function (passport, upload) {
         auth.home(request, response);
     });
 
+    router.post('/update_process', function (request, response) {
+        let post = request.body;
+        let id = post.id;
+        let penName = post.penName;
+        let comment = post.comment;
+
+        console.log(post);
+        db.query(`UPDATE user
+                     SET penname = ?
+                       , profile = ?
+                   WHERE id = ?`, [penName, comment, id], function (err, result) {
+            if (err) {
+                throw err;
+            }
+
+            request.session.passport.user.penName = penName;
+
+            response.redirect('/');
+        });
+    });
+
     router.post('/login_process',
         passport.authenticate('local', {
             successRedirect: '/',
@@ -23,13 +44,13 @@ module.exports = function (passport, upload) {
     });
 
     router.post('/register_process', upload.single('profile'), function (request, response) {
-            var post = request.body;
+        var post = request.body;
         var username = post.username;
         var penname = post.penname;
         var password = post.password;
         var comment = post.comment;
         let filename = request.file.filename;
-        
+
         db.query(`SELECT * FROM user WHERE id = ?`, [username], function (errorDuplicate, result) {
             if (errorDuplicate) {
                 throw errorDuplicate;
