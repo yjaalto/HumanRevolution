@@ -9,16 +9,16 @@ router.get('/', function (req, res) {
                       , T.title as title 
                       , IFNULL(T.description, '') as description
                       , A.penname as name 
-                      , (SELECT COUNT(*) FROM chapter WHERE topicid = t.id) as chaptercnt
-                      , (SELECT IFNULL(SUM(views), 0) FROM chapter WHERE topicid = t.id) as views
-                      , (SELECT IFNULL(COUNT(*), 0) FROM chapterlike WHERE topicid = t.id) as likes
+                      , (SELECT COUNT(*) FROM chapter WHERE topicid = T.id) as chaptercnt
+                      , (SELECT IFNULL(SUM(views), 0) FROM chapter WHERE topicid = T.id) as views
+                      , (SELECT IFNULL(COUNT(*), 0) FROM chapterlike WHERE topicid = T.id) as likes
                       , a.file
                    FROM topic AS T 
                   INNER JOIN user AS A 
                      ON T.author_id = A.id`
 
     db.query(query, function (error, topics) {
-        console.log(`penname`,auth.getPenName(req, res));
+        console.log(`topic`,topics);
         res.render('index', {
             title: 'My-New-Human-Revolution',
             topics: topics,
