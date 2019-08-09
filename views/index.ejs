@@ -37,9 +37,15 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-inline">
-                                <input class="search form-control mb-2" placeholder="찾기" />
-                                <!-- <button class="sort btn btn-secondary mb-2 mr-2" data-sort="name">이름으로 정렬</button>
-                                <button class="sort btn btn-secondary mb-2" data-sort="title">제목으로 정렬</button> -->
+                                <div class="form-group">
+                                    <div class="input-group input-group-alternative mb-4">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                        </div>
+                                        <input class="search form-control form-control-alternative" placeholder="찾기"
+                                            type="text">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -48,50 +54,53 @@
                             <% if(topics != null && topics.length >0) {%>
                             <% var i = 0; %>
                             <% while(i < topics.length) { %>
-                            <div class="topic">
-                                <div class="wrap-ut float-left">
-                                    <div class="userinfo float-left">
-                                        <div class="avatar">
-                                            <% if(topics[i].file) { %>
-                                                <img src='uploads/<%=topics[i].file%>'>
-                                            <%} else {%>
-                                                <img src='images/profile_none.png%>'>
-                                            <%}%>
+                            <div class="card card-stats mb-4">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-auto">
+                                            <div class="avatar rounded-cicle bg-white mr-3 shadow">
+                                                <% if(topics[i].file) { %>
+                                                <img src='uploads/<%=topics[i].file%>' alt="profile img">
+                                                <%} else {%>
+                                                <img alt="profile img" src="/images/profile_none.png">
+                                                <%}%>
+                                            </div>
+                                            <div class="author">
+                                                <%= topics[i].name%>
+
+                                            </div>
                                         </div>
-                                        <div class="author">
-                                            <%= topics[i].name%>
-                                            <% if(penName == topics[i].name) { %> 
-                                                <a class="edit" data-id='<%=topics[i].id%>' href="#"><i
+                                        <div class="col">
+                                            <h4 class="title"><a
+                                                    href='/topic/<%=topics[i].id%>'><%=topics[i].title%></a></h4>
+                                                <p class="text-muted">
+                                                    <%= topics[i].description %>
+                                                </p>
+                                        </div>
+                                        <% if(penName == topics[i].name) { %>
+                                        <div class="col-auto">
+                                            <a class="edit" data-id='<%=topics[i].id%>' href="#"><i
                                                     class="fas fa-edit"></i></a>
-                                            <%}%>
-                                            
                                         </div>
-                                    </div>
-                                    <div class="topictext float-left">
-                                        <h2 class="title">
-                                            <a href='/topic/<%=topics[i].id%>'><%=topics[i].title%></a>
-                                        </h2>
-                                        <p>
-                                            <%= topics[i].description %>
+
+                                        <%}%>
+                                        
+                                        </div>
+                                        <p class="mt-3 mb-0 text-muted text-sm">
+                                            <span class="heart mr-2 text-danger">
+                                                <i class="fas fa-heart"></i> <%= topics[i].likes %>
+                                        </span>
+                                        <span class="views mr-2">
+                                            <i class="fas fa-eye"></i> <%=topics[i].views%>
+                                        </span>
+                                        <span class="chapters mr-2">
+                                            <i class="fas fa-scroll"></i> <%=topics[i].chaptercnt%>
+                                        </span>
                                         </p>
                                     </div>
-                                    <div class="clearfix"></div>
                                 </div>
-                                <div class="topicinfo float-left">
-                                    <div class="heart">
-                                        <i class="fas fa-heart text-danger"></i> <%= topics[i].likes %>
-                                    </div>
-                                    <div class="views">
-                                        <i class="fas fa-eye"></i> <%=topics[i].views%>
-                                    </div>
-                                    <div class="chapters">
-                                        <i class="fas fa-scroll"></i> <%=topics[i].chaptercnt%>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                            <% i++;}%>
-                            <%}%>
+                                <% i++;}%>
+                                <%}%>
                                 </div>
                             </div>
                         </div>
@@ -157,48 +166,46 @@
             return false;
         }else {
             if(state === 'U') {
+                
             $('#topicId').val(topic[0].id);
             $('#title').val(topic[0].title);
             $('#description').val(topic[0].description);
-
-            //$('#author').hide();
             action = `/topic/update_process`;
-        }else {
+        } else {
             $('#title').val('');
             $('#description').val('');
             action = '/topic/create';
-            // $('#author').show();
         }
         $("#formTopic").attr('action',action);
-        
+
         $('#topicModal').modal('show');
         }
     }
 
-    $("#formTopic").on("submit", function (e) {
+        $("#formTopic").on("submit", function (e) {
         e.preventDefault();
-        
+
         var data = {};
-            data.id = $('#topicId').val();
-            data.title = $("#title").val();
-            data.description = $("#description").val();
-            //data.author = $("#author option:selected").val();
+        data.id = $('#topicId').val();
+        data.title = $("#title").val();
+        data.description = $("#description").val();
+        //data.author = $("#author option:selected").val();
 
         $.ajax({
-            url: $(this).attr('action'),             
-            type: 'POST',                    
-            data: data,
-            success: function(result) {
-            }
+        url: $(this).attr('action'),
+        type: 'POST',
+        data: data,
+        success: function(result) {
+        }
         });
 
         $("#topicModal").modal('hide');
-    });
+        });
 
-    $("#topicModal").on('hidden.bs.modal', function () {
+        $("#topicModal").on('hidden.bs.modal', function () {
         location.reload();
-    });
+        });
 
-</script>
+        </script>
 
 </html>
