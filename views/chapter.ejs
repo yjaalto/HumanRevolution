@@ -41,7 +41,7 @@
                     <div class="btn-group" role="group">
                         <form action="/chapter/delete_process" method="post">
                             <% if(chapter[0].authusername == username) {%>
-                            <button type="submit" class="btn btn-danger">삭제</button>
+                            <button type="submit" class="btn btn-danger" onclick="confirm('삭제하시겠습니까?');">삭제</button>
                             <a href='/chapter/update/<%=chapter[0].topic_id%>/<%=chapter[0].id%>'
                                 class="btn btn-warning">수정</a>
                             <%} %>

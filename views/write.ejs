@@ -17,13 +17,14 @@
     <main role="main" class="content">
         <div class="container mt-5">
             <div class="card">
+                    <form action="/chapter/create_process" method="post" class="" id="form" novalidate>
                 <div class="card-header">
                     <h3 class="mb-0">
                             <%= title%>
                     </h3>
                 </div>
                 <div class="card-body">
-                        <form action="/chapter/create_process" method="post" class="" id="form" novalidate>
+                        
                             <input type="hidden" name="topic_id" value='<%= topicId %>'>
                             <% if (locals.chapterId) { %>
                             <input type="hidden" name="chapter_id" value='<%= chapterId %>'>
@@ -39,12 +40,13 @@
                             <textarea name="content" class="sr-only" id="hiddenContent"></textarea>
                             <textarea name="text" class="sr-only" id="hiddenText"></textarea>
                             
-                    </form>
+                    
                 </div>
                 <div class="card-footer text-right">
                         <button class="btn btn-primary btn-md mt-3 mb-3" type="submit">저장</button>
                         <a href='/topic/<%= topicId %>' class="btn btn-secondary">목록</a>
                 </div>
+            </form>
             </div>
         </div>
         </div>

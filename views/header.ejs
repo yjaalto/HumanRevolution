@@ -117,7 +117,9 @@
         if (userInfo !== '') {
             $('#id').val('<%- userInfo.userName %>');
             $('#name').val('<%- userInfo.penName %>');
-            $('#comment').val('<%- userInfo.comment %>');
+
+            let comment = '<%- userInfo.comment %>';
+            $('#comment').val(comment.replace(/<br\s?\/?>/g,"\n"));
         }
     });
 

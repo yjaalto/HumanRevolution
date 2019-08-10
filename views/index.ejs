@@ -23,6 +23,7 @@
                     승리다!"라고 말할 수 있는 목표면 됩니다.
                 </p>
                 <p>
+                    <button class="btn btn-success my-2" data-toggle="modal" data-target="#modal-howtouse" >사용방법</button>
                     <button class="btn btn-primary my-2" data-toggle="modal" onclick="setInput('', 'C');">새로
                         집필하기</button>
                     <% if(penName === undefined) { %>
@@ -60,9 +61,11 @@
                                         <div class="col-auto">
                                             <div class="avatar rounded-cicle bg-white mr-3 shadow profile">
                                                 <% if(topics[i].file) { %>
-                                                <img src='uploads/<%=topics[i].file%>' alt="profile img" onclick="showUserInfo('<%=topics[i].authorid%>');">
+                                                <img src='uploads/<%=topics[i].file%>' alt="profile img"
+                                                    onclick="showUserInfo('<%=topics[i].authorid%>');">
                                                 <%} else {%>
-                                                <img alt="profile img" src="/images/profile_none.png" onclick="showUserInfo('<%=topics[i].authorid%>');">
+                                                <img alt="profile img" src="/images/profile_none.png"
+                                                    onclick="showUserInfo('<%=topics[i].authorid%>');">
                                                 <%}%>
                                             </div>
                                             <div class="author">
@@ -141,20 +144,20 @@
                 <div class="modal-content bg-gradient-success">
                     <div class="modal-body">
                             <div class="card card-profile shadow">
-                                    <div class="row justify-content-center">
-                                      <div class="col-lg-3 order-lg-2">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-3 order-lg-2">
                                         <div class="card-profile-image">
                                           <a href="#">
-                                            <img src="/images/profile_none.png" class="rounded-circle">
+                                            <img id="profileImage" src="/images/profile_none.png" class="rounded-circle">
                                           </a>
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="card-body pt-0 pt-md-4">
-                                      <div class="row">
+                                <div class="card-body pt-0 pt-md-4">
+                                    <div class="row">
                                         <div class="col">
                                           <div class="card-profile-stats d-flex justify-content-center mt-md-5">
-                                            <div>
+                                            <!-- <div>
                                               <span class="heading">22</span>
                                               <span class="description">Friends</span>
                                             </div>
@@ -165,22 +168,68 @@
                                             <div>
                                               <span class="heading">89</span>
                                               <span class="description">Comments</span>
-                                            </div>
+                                            </div> -->
                                           </div>
                                         </div>
                                       </div>
                                       <div class="text-center">
                                         <h3>
-                                          Jessica Jones
+                                          <span id="profilePenName"></span>
                                         </h3>
                                         <hr class="my-4">
-                                        <p class="text-muted">Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music.</p>
+                                        <p class="text-muted" id="profileComment"></p>
                                         
                                       </div>
                                     </div>
                                   </div>
                     </div>
                 </div>
+            </div>
+            </div>
+            <div class="modal fade" id="modal-howtouse" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered modal-" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modal-title-default">사용방법</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="container">
+                            <h3>1. 가입을 합니다.</h3>
+                            <p>
+                            <img alt="howtouse1" src="/images/howtouse1.png">
+                        </p>
+                            <h3>2. 위쪽에 버튼을 눌러 로그인도 합니다.</h3>
+                            <p>
+                            <img alt="howtouse2" src="/images/howtouse2.png">
+                        </p>
+                            <h3>3. <span class="badge badge-primary">새로 집필하기</span>를 눌러 도전할 주제를 정해주세요</h3>
+                            <p>
+                                    <img alt="howtouse3" src="/images/howtouse3.png"><br>
+                                무엇이든 좋습니다. 연찬, 운동, 공부 등... 자신만의 인간혁명을 도전할 주제를 정하세요.
+                                    
+                            </p>
+                            <h3>4. 주제 제목을 클릭합니다. 그럼 해당 주제에 기록된 내용들이 보입니다.</h3>
+                            <p>
+                                    <img alt="howtouse4" src="/images/howtouse4.png">
+                                    클릭
+                                </p>    
+                            <h3>5. 넘어간 페이지에서 <span class="badge badge-primary">새로 작성하기</span>를 눌러 매일매일 기록하고 공유합시다!!</h3>
+                            <p>
+                                    <img alt="howtouse5" src="/images/howtouse5.png">
+                                    <b>100% 익명</b>이니 솔직하고 자유롭게 작성해보아요~ 😸
+                                </p>    
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">닫기</button>
+                </div>
+
             </div>
     <a href="#" id="scroll" style="display: none;"><span></span></a>
 </body>
@@ -202,65 +251,76 @@
         var action;
 
         var penName = '<%- penName %>'
-        if(penName === '') {
-            alert('가입 후 로그인해주세요.');
-            return false;
-        }else {
-            if(state === 'U') {
+                                if(penName === '') {
+                                alert('가입 후 로그인해주세요.');
+                                return false;
+                                }else {
+                                if(state === 'U') {
 
-                $('#topicId').val(topic[0].id);
-                $('#title').val(topic[0].title);
-                $('#description').val(topic[0].description);
-                action = `/topic/update_process`;
-            } else {
-                $('#title').val('');
-                $('#description').val('');
-                action = '/topic/create';
-            }
-                $("#formTopic").attr('action',action);
+                                $('#topicId').val(topic[0].id);
+                                $('#title').val(topic[0].title);
+                                let desc = topic[0].description;
+                                if(desc != null) {
+                                desc.replace('\n', '<br>');
+                                }
+                                $('#description').val(desc);
+                                action = `/topic/update_process`;
+                                } else {
+                                $('#title').val('');
+                                $('#description').val('');
+                                action = '/topic/create';
+                                }
+                                $("#formTopic").attr('action',action);
 
-                $('#topicModal').modal('show');
-        }
-    }
+                                $('#topicModal').modal('show');
+                                }
+                                }
 
-    $("#formTopic").on("submit", function (e) {
-        e.preventDefault();
+                                $("#formTopic").on("submit", function (e) {
+                                e.preventDefault();
 
-        var data = {};
-        data.id = $('#topicId').val();
-        data.title = $("#title").val();
-        data.description = $("#description").val();
-    
+                                var data = {};
+                                data.id = $('#topicId').val();
+                                data.title = $("#title").val();
+                                data.description = $("#description").val();
 
-        $.ajax({
-        url: $(this).attr('action'),
-        type: 'POST',
-        data: data,
-        success: function(result) {
-            }
-            });
 
-        $("#topicModal").modal('hide');
-        });
+                                $.ajax({
+                                url: $(this).attr('action'),
+                                type: 'POST',
+                                data: data,
+                                success: function(result) {
+                                }
+                                });
 
-        $("#topicModal").on('hidden.bs.modal', function () {
-        location.reload();
-        });
+                                $("#topicModal").modal('hide');
+                                });
 
-        function showUserInfo(id) {
-            var data = {};
-            data.id = id;
+                                $("#topicModal").on('hidden.bs.modal', function () {
+                                location.reload();
+                                });
 
-            $.ajax({
-                url: '/getUser',
-                type: 'POST',
-                data: data,
-                success: function (result) {
-                    console.log(result);
-                }
-            });
-            $("#modal-userInfo").modal("show");
-        }
-</script>
+                                function showUserInfo(id) {
+                                var data = {};
+                                data.id = id;
+
+                                $.ajax({
+                                url: '/getUser',
+                                type: 'POST',
+                                data: data,
+                                success: function (result) {
+                                $("#profilePenName").text(result[0].penname);
+                                $("#profileComment").text(result[0].profile);
+
+                                if(result[0].file !== null) {
+                                $("#profileImage").attr("src", "/uploads/"+ result[0].file);
+                                } else {
+                                $("#profileImage").attr("src", "/images/profile_none.png");
+                                }
+                                }
+                                });
+                                $("#modal-userInfo").modal("show");
+                                }
+                                </script>
 
 </html>
