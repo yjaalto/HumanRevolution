@@ -111,6 +111,18 @@ app.post('/unliked', function (request, response) {
         });
 });
 
+app.post('/getUser', function (request, response) {
+    const post = request.body;
+    db.query(`SELECT penname, profile, file FROM user WHERE id = ?`, [post.id],
+        function (error, result) {
+            if(error) {
+                throw error;
+            } else {
+                response.send(result);
+            }
+        });
+})
+
 
 
 app.use(function (req, res, next) {

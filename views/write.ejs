@@ -16,29 +16,35 @@
     </header>
     <main role="main" class="content">
         <div class="container mt-5">
-            <div class="row">
-                <h2><%= title%></h2>
-                <div class="col-md-12 topic">
-                    <form action="/chapter/create_process" method="post" class="" id="form" novalidate>
-                        <input type="hidden" name="topic_id" value='<%= topicId %>'>
-                        <% if (locals.chapterId) { %>
-                        <input type="hidden" name="chapter_id" value='<%= chapterId %>'>
-                        <%}%>
-                        
-                        <label for="title" class="mt-3">제목</label>
-                        <input type="text" class="form-control" id="title" name="title" required>
-                        <div class="invalid-feedback">
-                            제목을 입력해주세요.
-                        </div>
-                        <label for="content" class="mt-3">내용</label>
-                        <div id="editor"></div>
-                        <textarea name="content" class="sr-only" id="hiddenContent"></textarea>
-                        <textarea name="text" class="sr-only" id="hiddenText"></textarea>
-                        <div class="text-right">
-                            <button class="btn btn-primary btn-md mt-3 mb-3" type="submit">저장</button>
-                            <a href='/topic/<%= topicId %>' class="btn btn-secondary text-white">목록</a>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="mb-0">
+                            <%= title%>
+                    </h3>
                 </div>
-                </form>
+                <div class="card-body">
+                        <form action="/chapter/create_process" method="post" class="" id="form" novalidate>
+                            <input type="hidden" name="topic_id" value='<%= topicId %>'>
+                            <% if (locals.chapterId) { %>
+                            <input type="hidden" name="chapter_id" value='<%= chapterId %>'>
+                            <%}%>
+                            
+                            <label for="title" class="mt-3">제목</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                            <div class="invalid-feedback">
+                                제목을 입력해주세요.
+                            </div>
+                            <label for="content" class="mt-3">내용</label>
+                            <div id="editor"></div>
+                            <textarea name="content" class="sr-only" id="hiddenContent"></textarea>
+                            <textarea name="text" class="sr-only" id="hiddenText"></textarea>
+                            
+                    </form>
+                </div>
+                <div class="card-footer text-right">
+                        <button class="btn btn-primary btn-md mt-3 mb-3" type="submit">저장</button>
+                        <a href='/topic/<%= topicId %>' class="btn btn-secondary">목록</a>
+                </div>
             </div>
         </div>
         </div>

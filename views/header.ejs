@@ -25,24 +25,32 @@
         </a>
         <div class="d-flex justify-content-end align-items-center">
             <% if(locals.penName) { %>
-            <div class="avatar bg-white dropdown mr-2">
-                <a data-toggle="dropdown" href="#">
-                    <% if(avatar !== 'null') { %>
-                    <img src="/uploads/<%= avatar %>" alt="프로필 사진">
-                    <%} else { %>
-                    <img src="/images/profile_none.png" alt="">
-                    <% } %>
+            <div class="dropdown">
+                <a class="nav-link pr-0" id="profileDropdown" href="#" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <div class="media align-item-center">
+                        <span class="avatar rounded-circle bg-white">
+                            <% if(avatar !== 'null') { %>
+                            <img src="/uploads/<%= avatar %>" alt="프로필 사진">
+                            <%} else { %>
+                            <img src="/images/profile_none.png" alt="">
+                            <% } %>
+                        </span>
+                    </div>
                 </a>
-                <b class="caret"></b>
-                <div class="dropdown-menu" role="menu">
-                    <h6 class="dropdown-item">
-                        <% if(locals.penName){ %>
-                        <%=penName %>
-                        <% } %>
-                    </h6>
+                <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                    <div class="dropdown-item">
+                        <h6 class="text-overflow m-0">어서오세요!</h6>
+                    </div>
+                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profileModal">
+                        <i class="fas fa-cog"></i>
+                        <span>수정</span>
+                    </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" data-toggle="modal" data-target="#profileModal">수정</a>
-                        <a class="dropdown-item" href="/logout">로그아웃</a>
+                    <a href="/logout" class="dropdown-item">
+                        <i class="fas fa-running"></i>
+                        <span>로그아웃</span>
+                    </a>
                 </div>
             </div>
             <%}  else { %>
@@ -58,21 +66,26 @@
 </div>
 
 <% if(locals.userInfo) { %>
-<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel" aria-hidden="true">
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <form id="formUser" action="/auth/update_process" method="post">
                 <input id="id" type="hidden" name="id">
                 <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLabel">수정</h6>
+                    <h3 class="modal-title" id="exampleModalLabel">수정</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                        <label for="profile_img">프로필 사진 변경</label>
-                        <div>
+                            <div class="alert alert-danger" role="alert">
+                                    프로필 사진 변경은 준비중에 있습니다. 😂
+                                </div>
+                        <!-- <label for="profile_img">프로필 사진 변경</label> -->
+
+                        <!-- <div>
                             <% if(avatar !== '') { %>
                             <% if(avatar == 'null') { %>
                             <img src="/images/profile_none.png" alt="">
@@ -80,7 +93,7 @@
                             <img src="/uploads/<%= avatar %>" alt="프로필 사진" style="max-width: 100%;">
                             <% }%>
                             <% } %>
-                        </div>
+                        </div> -->
                         <input type="file" name="profile_img" id="profile_img" class="sr-only">
                         <label for="name">필명</label>
                         <input id="name" class="form-control" name="penName">
@@ -121,7 +134,9 @@
             url: $(this).attr('action'),
             type: 'POST',
             data: data,
-            success: function (result) {}
+            success: function (result) {
+
+            }
         });
 
         $("#profileModal").modal('hide');

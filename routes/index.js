@@ -13,6 +13,7 @@ router.get('/', function (req, res) {
                       , (SELECT IFNULL(SUM(views), 0) FROM chapter WHERE topicid = T.id) as views
                       , (SELECT IFNULL(COUNT(*), 0) FROM chapterlike WHERE topicid = T.id) as likes
                       , A.file
+                      , A.id as authorid
                    FROM topic AS T 
                   INNER JOIN user AS A 
                      ON T.author_id = A.id`
